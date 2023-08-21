@@ -55,11 +55,14 @@ const App = () => {
         author: newAuthor,
         url: newUrl}
       )
-      console.log(blog)
       setBlogs(blogs.concat(blog))
       setNewAuthor('')
       setNewBlog('')
       setNewUrl('')
+      setMessage(`a new blog ${blog.title} by ${blog.author} added`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     } catch (error) {
       setErrorMessage(error.message)
       setTimeout(() => {
@@ -85,11 +88,12 @@ const App = () => {
 
   return (
     <>
-      <Notification message={message} />
-      <Error message={errorMessage} />
       {user === null 
       &&
       <>
+        <h2>Log in to application</h2>
+        <Notification message={message} />
+        <Error message={errorMessage} />
         <Login 
         handleLogin={handleLogin}
         username={username}
@@ -101,6 +105,8 @@ const App = () => {
       {user !== null && 
       <>
       <h2>blogs</h2>
+      <Notification message={message} />
+      <Error message={errorMessage} />
       <p>{user.username} logged in <button onClick={handleLogOut}>log out</button></p> 
       <BlogForm
       addBlog={addBlog}
