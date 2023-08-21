@@ -49,6 +49,20 @@ const App = () => {
     blogService.setToken(null)
   }
 
+  const handleLike = async (blog) => {
+    const blogToUpdate = {
+      user: blog.user.id,
+      id: blog.id,
+      title: blog.title,
+      likes: blog.likes + 1,
+      author: blog.author,
+      url: blog.url
+    }
+    
+    const UpdatedBlog = await blogService.update(blog.id, blogToUpdate)
+    setBlogs(blogs.map((blog) => (blog.id !== blogToUpdate.id ? blog : blogToUpdate )))
+  }
+
   const addBlog = async (event) => {
     event.preventDefault()
     
@@ -125,7 +139,7 @@ const App = () => {
         />
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleLike={handleLike} />
       )}
       </>
       }
