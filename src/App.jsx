@@ -59,8 +59,14 @@ const App = () => {
       url: blog.url
     }
     
-    const UpdatedBlog = await blogService.update(blog.id, blogToUpdate)
+    await blogService.update(blog.id, blogToUpdate)
     setBlogs(blogs.map((blog) => (blog.id !== blogToUpdate.id ? blog : blogToUpdate )))
+  }
+
+  const handleDelete = async (blog) => {
+    await blogService.remove(blog.id)
+    setBlogs(blogs.filter((b) => b.id !== blog.id))
+
   }
 
   const addBlog = async (event) => {
@@ -139,7 +145,7 @@ const App = () => {
         />
       </Togglable>
       {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-        <Blog key={blog.id} blog={blog} handleLike={handleLike} />
+        <Blog key={blog.id} blog={blog} handleLike={handleLike} handleDelete={handleDelete}/>
       )}
       </>
       }
