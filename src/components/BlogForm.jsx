@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const BlogForm = ({addBlog, newBlog, newAuthor, newUrl, setNewBlog, setNewAuthor, setNewUrl}) => (
     <form onSubmit={addBlog}>
       <div>
@@ -33,5 +35,15 @@ const BlogForm = ({addBlog, newBlog, newAuthor, newUrl, setNewBlog, setNewAuthor
       <button type="submit">save</button>
     </form>  
 )
+
+BlogForm.propTypes = {
+  addBlog: PropTypes.func.isRequired,
+  newBlog: PropTypes.string.isRequired,
+  newAuthor: PropTypes.string.isRequired,
+  newUrl: PropTypes.string.isRequired,
+  setNewBlog: PropTypes.func.isRequired,
+  setNewAuthor: PropTypes.func.isRequired,
+  setNewUrl: PropTypes.func.isRequired
+}
 
 export default BlogForm
