@@ -2,9 +2,9 @@ describe('blog app', () => {
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3003/api/testing/reset')
     cy.request('POST', 'http://localhost:3003/api/users', {
-      username: "usuario",
-      name: "nombre",
-      password: "passw"
+      username: 'usuario',
+      name: 'nombre',
+      password: 'passw'
     })
     cy.visit('http://localhost:5173/')
   })
@@ -30,8 +30,8 @@ describe('blog app', () => {
       cy.get('#login-button').click()
 
       cy.get('#error:first').should('include.text', 'Wrong credentials')
-      .should('have.css', 'color')
-      .and('eq', 'rgb(255, 0, 0)')
+        .should('have.css', 'color')
+        .and('eq', 'rgb(255, 0, 0)')
     })
   })
 
@@ -74,9 +74,9 @@ describe('blog app', () => {
       cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})  
       cy.contains('log out').click()
       cy.request('POST', 'http://localhost:3003/api/users', {
-        username: "patricio",
-        name: "patricio",
-        password: "siup"
+        username: 'patricio',
+        name: 'patricio',
+        password: 'siup'
       })
       cy.login({username: 'patricio', password: 'siup'})
       cy.contains('view').first().click()

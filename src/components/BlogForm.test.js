@@ -1,6 +1,6 @@
 import React from 'react'
-import "@testing-library/jest-dom";
-import { fireEvent, prettyDOM, render } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import { fireEvent, render } from '@testing-library/react'
 import BlogForm from './BlogForm'
 
 describe('<BlogForm />', () => {
