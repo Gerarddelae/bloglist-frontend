@@ -35,4 +35,23 @@ describe('blog app', () => {
       .and('eq', 'rgb(255, 0, 0)')
     })
   })
+
+  describe.only('when logged in', () => {
+    beforeEach(function() {
+      cy.login({username: 'usuario', password: 'passw'})
+    })
+
+    it('A blog can be created', () => {
+      cy.get('#toggleBlogForm').click()
+      cy.get('#title').type('valid title')
+      cy.get('#author').type('valid author')
+      cy.get('#url').type('valid url')
+
+      cy.get('#submitBlog').click()
+
+      cy.contains('valid title')
+      cy.contains('valid author')
+    })
+  })
+
 })
