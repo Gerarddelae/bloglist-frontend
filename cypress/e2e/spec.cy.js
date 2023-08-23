@@ -52,6 +52,14 @@ describe('blog app', () => {
       cy.contains('valid title')
       cy.contains('valid author')
     })
+
+    it.only('a blog can be liked', () => {
+      cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})
+      cy.contains('view').first().click()
+      cy.get('.likeCounter').first().should('contain', 0)
+      cy.get('.likeButton').first().click()
+      cy.get('.likeCounter').first().should('contain', 1)
+    })
   })
 
 })
