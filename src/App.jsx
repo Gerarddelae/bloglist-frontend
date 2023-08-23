@@ -64,9 +64,20 @@ const App = () => {
   }
 
   const handleDelete = async (blog) => {
-    await blogService.remove(blog.id)
-    setBlogs(blogs.filter((b) => b.id !== blog.id))
-
+    try {
+      if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+        const response = await blogService.remove(blog.id)
+        if (response.status === 401) {
+          return
+        } 
+      } 
+      setBlogs(blogs.filter((b) => b.id !== blog.id))
+    } catch (error) {
+      setErrorMessage('this blog isnt yours')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000) 
+    }
   }
 
   const addBlog = async (event) => {

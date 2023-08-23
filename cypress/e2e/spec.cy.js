@@ -36,7 +36,7 @@ describe('blog app', () => {
     })
   })
 
-  describe.only('when logged in', () => {
+  describe('when logged in', () => {
     beforeEach(function() {
       cy.login({username: 'usuario', password: 'passw'})
     })
@@ -61,7 +61,7 @@ describe('blog app', () => {
       cy.get('.likeCounter').first().should('contain', 1)
     })
     
-    it.only('a blog can be deleted by the user that owns it', () => {
+    it('a blog can be deleted by the user that owns it', () => {
       cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})
       cy.contains('view').first().click()
       cy.contains('remove').first().click()
@@ -71,6 +71,21 @@ describe('blog app', () => {
       cy.contains('view').should('not.exist')
     })
 
+    it.only('a blog cannot be deleted by other user', () => {
+      cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})  
+      cy.contains('log out').click()
+      cy.request('POST', 'http://localhost:3003/api/users', {
+        username: "patricio",
+        name: "patricio",
+        password: "siup"
+      })
+      cy.login({username: 'patricio', password: 'siup'})
+      cy.contains('view').first().click()
+      cy.contains('remove').first().click()
+      cy.contains('this blog isnt yours')
+      cy.contains('valid title')
+      cy.contains('valid author')
+      cy.contains('valid url')
+    })
   })
-
 })

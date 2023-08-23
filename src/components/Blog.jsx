@@ -8,9 +8,7 @@ const Blog = ({ blog, handleLike, handleDelete }) => {
   }
 
   const removeBlog = () => {
-    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-      handleDelete(blog)
-    }
+    handleDelete(blog)
   }
   
   const showWhenVisible = { 
