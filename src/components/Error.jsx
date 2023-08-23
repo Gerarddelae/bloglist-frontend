@@ -6,7 +6,7 @@ const Error = ({ message }) => {
     }
   
   return (
-      <div className="error">
+      <div className="error" id='error'>
         {message}
       </div>
   )

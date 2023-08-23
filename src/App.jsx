@@ -117,7 +117,6 @@ const App = () => {
       <>
         <Notification message={message} />
         <Error message={errorMessage} />
-        <Togglable buttonLabel="log in">
           <Login 
           handleLogin={handleLogin}
           username={username}
@@ -125,7 +124,6 @@ const App = () => {
           setUsername={setUsername}
           setPassword={setPassword}
           />
-        </Togglable>
       </>}
       {user !== null && 
       <>
