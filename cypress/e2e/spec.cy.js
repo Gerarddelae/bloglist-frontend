@@ -53,13 +53,24 @@ describe('blog app', () => {
       cy.contains('valid author')
     })
 
-    it.only('a blog can be liked', () => {
+    it('a blog can be liked', () => {
       cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})
       cy.contains('view').first().click()
       cy.get('.likeCounter').first().should('contain', 0)
       cy.get('.likeButton').first().click()
       cy.get('.likeCounter').first().should('contain', 1)
     })
+    
+    it.only('a blog can be deleted by the user that owns it', () => {
+      cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})
+      cy.contains('view').first().click()
+      cy.contains('remove').first().click()
+
+      cy.contains('valid title').should('not.exist')
+      cy.contains('valid author').should('not.exist')
+      cy.contains('view').should('not.exist')
+    })
+
   })
 
 })
