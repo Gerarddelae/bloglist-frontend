@@ -1,7 +1,6 @@
 describe('blog app', () => {
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3003/api/testing/reset')
-    //cy.login({ username: 'patricio', password: 'siu'})
     cy.request('POST', 'http://localhost:3003/api/users', {
       username: "usuario",
       name: "nombre",
@@ -71,7 +70,7 @@ describe('blog app', () => {
       cy.contains('view').should('not.exist')
     })
 
-    it.only('a blog cannot be deleted by other user', () => {
+    it('a blog cannot be deleted by other user', () => {
       cy.createBlog({title: 'valid title', author: 'valid author', url: 'valid url'})  
       cy.contains('log out').click()
       cy.request('POST', 'http://localhost:3003/api/users', {
@@ -87,5 +86,14 @@ describe('blog app', () => {
       cy.contains('valid author')
       cy.contains('valid url')
     })
+
+    it.only('blogs are sorted by most likes', () => {
+      cy.createBlog({title: 'second most likes', author: 'second liked author', url: 'second liked url'})
+      cy.createBlog({title: 'most likes', author: 'most liked author', url: 'most liked url'})
+      cy.get('.blog').eq(1).contains('view').click()
+      cy.get('.likeButton').eq(1).click()
+      cy.get('.blog').eq(0).should('contain', 'most likes')
+      cy.get('.blog').eq(1).should('contain', 'second most likes')
+    }) 
   })
 })

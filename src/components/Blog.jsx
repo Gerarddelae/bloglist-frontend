@@ -32,7 +32,7 @@ const Blog = ({ blog, handleLike, handleDelete }) => {
     marginBottom: 5
   }
   return (
-  <>
+  <div className="blog">
   <div style={blogStyle} className="showByDefault">
       {blog.title} {blog.author} <button onClick={toggleVisibility}>view</button>
   </div>
@@ -42,7 +42,7 @@ const Blog = ({ blog, handleLike, handleDelete }) => {
     <p>{blog.author}</p>
     <button onClick={removeBlog}>remove</button>
   </div>
-  </>  
+  </div>  
   )
 }
 
